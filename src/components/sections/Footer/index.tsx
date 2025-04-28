@@ -28,16 +28,16 @@ export default function Footer(props) {
                     )}
                     {contacts && <Contacts {...contacts} />}
                     {/* Please keep this attribution up if you're using Stackbit's free plan. */}
-                    {copyrightText && (
-                        <div className={classNames(primaryLinks.length > 0 || contacts ? 'md:self-end' : null)}>
-                            <Markdown
-                                options={{ forceInline: true, forceWrapper: true, wrapper: 'p' }}
-                                className="tracking-widest prose-sm prose uppercase"
-                            >
-                                {copyrightText}
-                            </Markdown>
-                        </div>
-                    )}
+                    {/*{copyrightText && (*/}
+                    {/*    <div className={classNames(primaryLinks.length > 0 || contacts ? 'md:self-end' : null)}>*/}
+                    {/*        <Markdown*/}
+                    {/*            options={{ forceInline: true, forceWrapper: true, wrapper: 'p' }}*/}
+                    {/*            className="tracking-widest prose-sm prose uppercase"*/}
+                    {/*        >*/}
+                    {/*            {copyrightText}*/}
+                    {/*        </Markdown>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </div>
             </div>
         </footer>

@@ -6,6 +6,7 @@ import { mapStylesToClassNames as mapStyles } from '@/utils/map-styles-to-class-
 type SectionProps = React.PropsWithChildren<{
     type?: string;
     elementId?: string;
+    className?: string;
     colors?: 'colors-a' | 'colors-b' | 'colors-c' | 'colors-d' | 'colors-e' | 'colors-f';
     backgroundSize?: 'full' | 'inset';
     styles?: any;

@@ -5,7 +5,7 @@
         "type": "Header",
         "headerVariant": "variant-c",
         "isSticky": false,
-        "title": "Personal",
+        "title": "AICERA",
         "isTitleVisible": true,
         "primaryLinks": [
             {
@@ -15,7 +15,7 @@
             },
             {
                 "type": "Link",
-                "label": "Projects",
+                "label": "Services",
                 "url": "/projects"
             },
             {
@@ -77,9 +77,9 @@
         "contacts": {
             "type": "ContactBlock",
             "title": "Contact details",
-            "phoneNumber": "850-123-5021",
+            "phoneNumber": "9900025186",
             "phoneAltText": "My phone number",
-            "email": "thisismyemail.@myemail.me",
+            "email": "samanyu48@gmail.com",
             "emailAltText": "My email",
             "address": "312 Lovely Street, Brooklyn, NY, 123456",
             "addressAltText": "My address"

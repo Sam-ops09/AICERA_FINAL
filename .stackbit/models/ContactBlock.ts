@@ -23,7 +23,7 @@ export const ContactBlockModel: Model = {
             type: 'string',
             name: 'phoneNumber',
             label: 'Phone number',
-            default: '850-123-5021'
+            default: '9900025186'
         },
         {
             type: 'string',

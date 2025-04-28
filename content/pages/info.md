@@ -1,14 +1,14 @@
 ---
 type: PageLayout
 title: About
-colors: colors-a
+colors: colors-b
 backgroundImage:
   type: BackgroundImage
-  url: /images/bg4.jpg
+  url: /images/featured-Image3.jpg
   backgroundSize: cover
   backgroundPosition: center
   backgroundRepeat: no-repeat
-  opacity: 75
+  opacity: 20
 sections:
   - elementId: ''
     colors: colors-f
@@ -78,7 +78,7 @@ sections:
     columns: 5
     aspectRatio: auto
     showCaption: false
-    enableHover: false
+    enableHover: true
     styles:
       self:
         width: wide

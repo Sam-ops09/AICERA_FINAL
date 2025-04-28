@@ -2,6 +2,9 @@ import { generateGlobalCssVariables } from '@/utils/theme-style-utils';
 import { useEffect, useState } from 'react';
 import '../css/main.css';
 
+import { AuthProvider } from '@/contexts/AuthContext';
+import AuthModal from '@/components/AuthModal';
+
 export default function MyApp({ Component, pageProps }) {
     const { global, ...page } = pageProps;
     const { theme } = global || {};
@@ -21,7 +24,10 @@ export default function MyApp({ Component, pageProps }) {
                     ${cssVars}
                 }
             `}</style>
-            {isMounted ? <Component {...pageProps} /> : null}
+            <AuthProvider>
+                <AuthModal />
+                {isMounted ? <Component {...pageProps} /> : null}
+            </AuthProvider>
         </>
     );
 }

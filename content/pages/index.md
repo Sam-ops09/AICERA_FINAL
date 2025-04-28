@@ -1,25 +1,24 @@
 ---
 type: PageLayout
 title: Home
-colors: colors-a
+colors: colors-b
 backgroundImage:
   type: BackgroundImage
-  url: /images/bg1.jpg
+  url: /images/featured-Image3.jpg
   backgroundSize: cover
   backgroundPosition: center
   backgroundRepeat: no-repeat
-  opacity: 75
+  opacity: 20
 sections:
   - elementId: ''
     colors: colors-f
     backgroundSize: full
     title: >-
-      I’m a developer, digital artist, consultant and a bunch of other
-      impressive titles and buzz words.
+        AICERA: Your partner for Advanced Intelligent Centric Empowering Results-driven Approach to IT solutions.
     subtitle: >-
-      This is my info—I’m sharing it all this with ya’ll to impress you with all
-      the hard work I’ve done in the past few years. Once you’re impressed, you
-      can continue to scroll down to see more details and credentials about me.
+        As a new and dynamic end-to-end IT solution provider based in Bengaluru, India, 
+        AICERA is dedicated to helping your business thrive in the digital age. 
+        We offer a comprehensive suite of services designed to address all your IT needs.
     styles:
       self:
         height: auto
@@ -30,8 +29,8 @@ sections:
           - ml-0
           - mr-0
         padding:
-          - pt-36
-          - pb-48
+          - pt-16
+          - pb-6
           - pl-4
           - pr-4
         flexDirection: row-reverse
@@ -43,7 +42,7 @@ sections:
     elementId: ''
     actions:
       - type: Link
-        label: See all projects
+        label: See all Services
         url: /projects
     showDate: false
     showDescription: true
@@ -64,7 +63,7 @@ sections:
           - pl-4
           - pr-4
         textAlign: left
-    subtitle: Projects
+    subtitle: Our Services
   - type: FeaturedPostsSection
     elementId: ''
     colors: colors-f

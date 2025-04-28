@@ -8,44 +8,62 @@ import { mapStylesToClassNames as mapStyles } from '@/utils/map-styles-to-class-
 import Section from '../Section';
 
 export default function ProjectFeedSection(props) {
-    const { elementId, colors, variant = 'variant-a', title, subtitle, actions = [], styles = {}, ...rest } = props;
+    const {
+        elementId,
+        colors,
+        variant = 'variant-a',
+        title,
+        subtitle,
+        actions = [],
+        styles = {},
+        ...rest
+    } = props;
+
     const sectionAlign = styles.self?.textAlign ?? 'left';
+
     return (
         <Section elementId={elementId} colors={colors} styles={styles.self}>
-            {title && (
-                <h2 className={classNames('text-4xl sm:text-5xl', mapStyles({ textAlign: sectionAlign }))}>{title}</h2>
-            )}
-            {subtitle && (
-                <p
-                    className={classNames('text-lg sm:text-xl', mapStyles({ textAlign: sectionAlign }), {
-                        'mt-6': title
-                    })}
-                >
-                    {subtitle}
-                </p>
-            )}
-            {variant === 'variant-d' ? (
-                <ProjectList {...rest} hasTopMargin={!!(title || subtitle)} headingLevel={title ? 'h3' : 'h2'} />
-            ) : (
-                <ProjectGrid
-                    {...rest}
-                    variant={variant}
-                    hasTopMargin={!!(title || subtitle)}
-                    headingLevel={title ? 'h3' : 'h2'}
-                />
-            )}
-            {actions?.length > 0 && (
-                <div
-                    className={classNames(
-                        'flex flex-wrap items-center gap-4 mt-10',
+            <div className="container mx-auto px-4">
+                {title && (
+                    <h2 className={classNames('text-4xl sm:text-5xl font-bold mb-4', mapStyles({ textAlign: sectionAlign }))}>
+                        {title}
+                    </h2>
+                )}
+
+                {subtitle && (
+                    <p className={classNames('text-lg sm:text-xl opacity-80', mapStyles({ textAlign: sectionAlign }), {
+                        'mt-4': title
+                    })}>
+                        {subtitle}
+                    </p>
+                )}
+
+                {variant === 'variant-d' ? (
+                    <ProjectList
+                        {...rest}
+                        hasTopMargin={!!(title || subtitle)}
+                        headingLevel={title ? 'h3' : 'h2'}
+                    />
+                ) : (
+                    <ProjectGrid
+                        {...rest}
+                        variant={variant}
+                        hasTopMargin={!!(title || subtitle)}
+                        headingLevel={title ? 'h3' : 'h2'}
+                    />
+                )}
+
+                {actions?.length > 0 && (
+                    <div className={classNames(
+                        'flex flex-wrap items-center gap-4 mt-12',
                         sectionAlign === 'center' ? 'justify-center' : 'justify-end'
-                    )}
-                >
-                    {actions.map((action, index) => (
-                        <Action key={index} {...action} />
-                    ))}
-                </div>
-            )}
+                    )}>
+                        {actions.map((action, index) => (
+                            <Action key={index} {...action} />
+                        ))}
+                    </div>
+                )}
+            </div>
         </Section>
     );
 }
@@ -61,44 +79,57 @@ function ProjectGrid(props) {
         hasTopMargin,
         headingLevel
     } = props;
+
     if (projects.length === 0) {
         return null;
     }
+
     const TitleTag = headingLevel;
+
     return (
-        <div
-            className={classNames('grid gap-y-12', {
-                'md:grid-cols-2': variant === 'variant-a',
-                'md:grid-cols-3': variant === 'variant-b',
-                'justify-center': variant === 'variant-c',
-                'gap-x-6 lg:gap-x-8': variant !== 'variant-c',
-                'mt-12': hasTopMargin
-            })}
-        >
+        <div className={classNames('grid gap-8', {
+            'md:grid-cols-2': variant === 'variant-a',
+            'md:grid-cols-3': variant === 'variant-b',
+            'justify-center': variant === 'variant-c',
+            'gap-x-8 lg:gap-x-12': variant !== 'variant-c',
+            'mt-12': hasTopMargin
+        })}>
             {projects.map((project, index) => (
-                <Link key={index} href={project} className="block max-w-3xl pb-10 border-b border-current group">
+                <Link
+                    key={index}
+                    href={project}
+                    className="group relative block transition-all duration-300 hover:translate-y-1 rounded-lg overflow-hidden border-2 shadow-md hover:shadow-xl bg-white dark:bg-white/10"
+                >
                     {showFeaturedImage && project.featuredImage && (
-                        <div className="w-full mb-6 overflow-hidden aspect-3/2">
+                        <div className="w-full overflow-hidden aspect-3/2">
                             <ImageBlock
                                 {...project.featuredImage}
                                 className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                             />
                         </div>
                     )}
-                    {showDate && project.date && (
-                        <div className="mb-3">
-                            <ProjectDate date={project.date} />
-                        </div>
-                    )}
-                    <TitleTag className="text-3xl sm:text-4xl">{project.title}</TitleTag>
-                    {showDescription && project.description && <p className="mt-5 text-lg">{project.description}</p>}
-                    {showReadMoreLink && (
-                        <div className="mt-8">
-                            <span className="inline-flex text-xl transition rounded-full p-4 border-2 border-current group-hover:bottom-shadow-6 group-hover:-translate-y-1.5">
-                                <ArrowUpRightIcon className="fill-current w-icon h-icon" />
-                            </span>
-                        </div>
-                    )}
+
+                    <div className="p-6">
+                        {showDate && project.date && (
+                            <div className="mb-2 text-sm opacity-70">
+                                <ProjectDate date={project.date} />
+                            </div>
+                        )}
+
+                        <TitleTag className="text-2xl sm:text-3xl font-semibold mb-3">{project.title}</TitleTag>
+
+                        {showDescription && project.description && (
+                            <p className="mt-3 text-base opacity-80">{project.description}</p>
+                        )}
+
+                        {showReadMoreLink && (
+                            <div className="mt-6">
+                                <span className="inline-flex text-xl transition rounded-full p-4 border-2 border-current group-hover:bottom-shadow-6 group-hover:-translate-y-1.5">
+                                    <ArrowUpRightIcon className="fill-current w-icon h-icon" />
+                                </span>
+                            </div>
+                        )}
+                    </div>
                 </Link>
             ))}
         </div>
@@ -115,22 +146,27 @@ function ProjectList(props) {
         hasTopMargin,
         headingLevel
     } = props;
+
     if (projects.length === 0) {
         return null;
     }
+
     const TitleTag = headingLevel;
+
     return (
-        <div
-            className={classNames('grid gap-y-12', {
-                'mt-12': hasTopMargin
-            })}
-        >
+        <div className={classNames('space-y-8', {
+            'mt-12': hasTopMargin
+        })}>
             {projects.map((project, index) => (
-                <Link key={index} href={project} className="block pb-10 border-b border-current group md:pb-12 md:px-4">
-                    <div className="flex flex-col gap-8 md:flex-row md:items-center">
+                <Link
+                    key={index}
+                    href={project}
+                    className="group block transition-all duration-300 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900"
+                >
+                    <div className="flex flex-col gap-6 md:flex-row md:items-center">
                         {showFeaturedImage && project.featuredImage && (
-                            <div className="md:shrink-0 md:self-stretch md:w-48">
-                                <div className="w-full overflow-hidden aspect-3/2 md:min-h-full">
+                            <div className="md:shrink-0 md:w-56 rounded-lg overflow-hidden">
+                                <div className="w-full overflow-hidden aspect-3/2 md:h-full">
                                     <ImageBlock
                                         {...project.featuredImage}
                                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
@@ -138,20 +174,24 @@ function ProjectList(props) {
                                 </div>
                             </div>
                         )}
+
                         <div className="md:grow">
                             {showDate && project.date && (
-                                <div className="mb-3">
+                                <div className="mb-2 text-sm opacity-70">
                                     <ProjectDate date={project.date} />
                                 </div>
                             )}
-                            <TitleTag className="text-3xl sm:text-4xl">{project.title}</TitleTag>
+
+                            <TitleTag className="text-2xl sm:text-3xl font-semibold">{project.title}</TitleTag>
+
                             {showDescription && project.description && (
-                                <p className="mt-5 text-lg">{project.description}</p>
+                                <p className="mt-3 text-base opacity-80">{project.description}</p>
                             )}
                         </div>
+
                         {showReadMoreLink && (
-                            <div className="md:mx-4">
-                                <span className="inline-flex text-xl transition rounded-full p-4 border-2 border-current md:text-3xl group-hover:bottom-shadow-6 group-hover:-translate-y-1.5">
+                            <div className="md:shrink-0">
+                                <span className="inline-flex text-xl transition rounded-full p-4 border-2 border-current group-hover:bottom-shadow-6 group-hover:-translate-y-1.5">
                                     <ArrowUpRightIcon className="fill-current w-icon h-icon" />
                                 </span>
                             </div>
@@ -165,6 +205,6 @@ function ProjectList(props) {
 
 function ProjectDate({ date }) {
     const dateTimeAttr = dayjs(date).format('YYYY-MM-DD HH:mm:ss');
-    const formattedDate = dayjs(date).format('YYYY-MM-DD');
+    const formattedDate = dayjs(date).format('MMM D, YYYY');
     return <time dateTime={dateTimeAttr}>{formattedDate}</time>;
 }

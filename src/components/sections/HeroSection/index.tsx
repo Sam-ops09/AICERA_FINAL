@@ -28,7 +28,7 @@ export default function Component(props: HeroSection) {
                     )}
                     {subtitle && (
                         <AnnotatedField path=".subtitle">
-                            <p className={classNames('text-xl sm:text-2xl', { 'mt-4': title })}>{subtitle}</p>
+                            <p className={classNames('text-xl sm:text-2xl text-justify', { 'mt-8': title })}>{subtitle}</p>
                         </AnnotatedField>
                     )}
                     {text && (

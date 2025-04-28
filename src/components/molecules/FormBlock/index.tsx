@@ -33,7 +33,7 @@ export default function FormBlock(props) {
                 <div className={classNames('mt-8', mapStyles({ textAlign: styles.self?.textAlign ?? 'left' }))}>
                     <button
                         type="submit"
-                        className="inline-flex items-center justify-center px-5 py-4 text-lg transition border-2 border-current hover:bottom-shadow-6 hover:-translate-y-1.5"
+                        className="inline-flex items-center justify-center rounded-xl px-5 py-4 text-lg transition border-2 border-current hover:bottom-shadow-6 hover:-translate-y-1.5"
                     >
                         {submitLabel}
                     </button>

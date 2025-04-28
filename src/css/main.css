@@ -12,6 +12,7 @@ layer(base);
     --text-color-inverse: var(--theme-dark);
     --container-8xl: 96rem;
     --spacing-icon: 1em;
+    --background-color-orange: blue;
 }
 
 @layer base {
@@ -148,7 +149,7 @@ layer(base);
     @apply transition-all text-main;
     background-image: linear-gradient(
         to bottom,
-        var(--background-color-inverse) 0%,
+        var(--background-color-orange) 0%,
         var(--background-color-inverse) 100%
     );
     background-size: 100% 0%;

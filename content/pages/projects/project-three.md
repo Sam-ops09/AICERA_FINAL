@@ -1,6 +1,13 @@
 ---
 type: ProjectLayout
 title: One more cool project
+backgroundImage:
+  type: BackgroundImage
+  url: /images/bg2.jpg
+  backgroundSize: cover
+  backgroundPosition: center
+  backgroundRepeat: no-repeat
+  opacity: 100
 colors: colors-a
 date: '2022-01-22'
 client: Awesome client

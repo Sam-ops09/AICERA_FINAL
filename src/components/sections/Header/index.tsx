@@ -7,12 +7,13 @@ import ImageBlock from '@/components/molecules/ImageBlock';
 import CloseIcon from '@/components/svgs/close';
 import MenuIcon from '@/components/svgs/menu';
 import HeaderLink from './HeaderLink';
+import LoginSignupButton from '@/components/LoginSignupButton';
 
 export default function Header(props) {
     const { isSticky, styles = {}, ...rest } = props;
     const headerWidth = styles.self?.width ?? 'narrow';
     return (
-        <header className={classNames(isSticky ? 'sticky top-0 z-10' : 'relative', 'border-b border-current')}>
+        <header className={classNames(isSticky ? 'sticky top-0 z-10' : 'relative', 'border border-current')}>
             <div
                 className={classNames({
                     'max-w-7xl mx-auto xl:border-x xl:border-current': headerWidth === 'narrow',
@@ -91,7 +92,7 @@ function HeaderVariantC(props) {
         <div className="relative flex items-stretch">
             <SiteLogoLink {...logoProps} />
             {socialLinks.length > 0 && (
-                <ul className="hidden ml-auto border-l border-current lg:flex">
+                <ul className="hidden ml-auto border-l border-current lg:flex divide-x divide-current">
                     <ListOfSocialLinks links={socialLinks} inMobileMenu={false} />
                 </ul>
             )}
@@ -105,6 +106,7 @@ function HeaderVariantC(props) {
                 </ul>
             )}
             {(primaryLinks.length > 0 || socialLinks.length > 0) && <MobileMenu {...props} />}
+            <LoginSignupButton variant="header" />
         </div>
     );
 }
@@ -196,7 +198,7 @@ function ListOfLinks({ links, inMobileMenu }) {
 function ListOfSocialLinks({ links, inMobileMenu = false }) {
     return links.map((link, index) => (
         <li key={index} className="inline-flex items-stretch">
-            <Social {...link} className={classNames('text-lg link-fill', inMobileMenu ? 'p-5' : 'p-4')} />
+            <Social {...link} className={classNames('text-lg link-fill ', inMobileMenu ? 'p-5' : 'p-4')} />
         </li>
     ));
 }

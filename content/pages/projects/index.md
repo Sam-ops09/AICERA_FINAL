@@ -1,14 +1,14 @@
 ---
 type: ProjectFeedLayout
-title: Projects
-colors: colors-a
+title: Services
+colors: colors-b
 backgroundImage:
   type: BackgroundImage
   url: /images/bg1.jpg
   backgroundSize: cover
   backgroundPosition: center
   backgroundRepeat: no-repeat
-  opacity: 50
+  opacity: 20
 projectFeed:
   type: ProjectFeedSection
   colors: colors-f
@@ -27,7 +27,7 @@ projectFeed:
         - pb-12
 topSections:
   - type: HeroSection
-    title: Projects
+    title: Our Services
     subtitle: ''
     actions: []
     colors: colors-f
