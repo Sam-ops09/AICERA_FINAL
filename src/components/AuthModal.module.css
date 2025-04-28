@@ -90,12 +90,36 @@
 .switchButton {
   background: none;
   border: none;
-  color: #000;
-  font-weight: 500;
+  color: inherit;
   cursor: pointer;
-  text-decoration: underline;
   padding: 0;
-  margin-left: 0.25rem;
+  font: inherit;
+  outline: inherit;
+  text-decoration: underline;
+}
+
+.forgotPassword {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px 8px;
+  font: inherit;
+  outline: inherit;
+  text-decoration: underline;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+.forgotPassword:hover {
+  opacity: 1;
+}
+
+.resetInstructions {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 0.9em;
+  color: #666;
 }
 
 .closeButton {

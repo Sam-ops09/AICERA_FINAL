@@ -1,14 +1,20 @@
-
 import { useRef, useEffect, useState } from 'react';
 import styles from './AuthModal.module.css';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function AuthModal() {
-    const { isAuthOpen, closeAuth, login, signup, setIsLoggedIn } = useAuth();
-    const [mode, setMode] = useState('login');
-    const [form, setForm] = useState({ email: '', password: '' });
+    const { isAuthOpen, closeAuth, login, signup, resetPassword, verifyOTP, setIsLoggedIn } = useAuth();
+    const [mode, setMode] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('mode') === 'reset' ? 'reset' : 'login';
+        }
+        return 'login';
+    });
+    const [form, setForm] = useState({ email: '', password: '', otp: '' });
     const [error, setError] = useState('');
     const [pending, setPending] = useState(false);
+    const [otpSent, setOtpSent] = useState(false);
 
     const modalRef = useRef(null);
     const lastFocusedElement = useRef(null);
@@ -17,9 +23,10 @@ export default function AuthModal() {
     const validatePassword = (password) => password.length >= 6;
 
     const resetForm = () => {
-        setForm({ email: '', password: '' });
+        setForm({ email: '', password: '', otp: '' });
         setError('');
         setPending(false);
+        setOtpSent(false);
     };
 
     useEffect(() => {
@@ -72,19 +79,43 @@ export default function AuthModal() {
             setError('Please enter a valid email address.');
             return;
         }
-        if (!validatePassword(form.password)) {
-            setError('Password must be at least 6 characters.');
-            return;
-        }
+
         setPending(true);
         try {
             if (mode === 'login') {
+                if (!validatePassword(form.password)) {
+                    setError('Password must be at least 6 characters.');
+                    return;
+                }
                 await login(form.email, form.password);
-            } else {
+                closeAuth();
+                setIsLoggedIn(true);
+            } else if (mode === 'signup') {
+                if (!validatePassword(form.password)) {
+                    setError('Password must be at least 6 characters.');
+                    return;
+                }
                 await signup(form.email, form.password);
+                closeAuth();
+                setIsLoggedIn(true);
+            } else if (mode === 'reset') {
+                if (!otpSent) {
+                    await resetPassword(form.email);
+                    setOtpSent(true);
+                } else {
+                    if (!form.otp) {
+                        setError('Please enter the OTP sent to your email.');
+                        return;
+                    }
+                    if (!validatePassword(form.password)) {
+                        setError('New password must be at least 6 characters.');
+                        return;
+                    }
+                    await verifyOTP(form.email, form.otp, form.password);
+                    setMode('login');
+                    setOtpSent(false);
+                }
             }
-            closeAuth();
-            setIsLoggedIn(true);
         } catch (err) {
             setError(err.message);
         }
@@ -111,25 +142,66 @@ export default function AuthModal() {
                             disabled={pending}
                         />
                     </div>
-                    <div className={styles.inputGroup}>
-                        <input
-                            name="password"
-                            type="password"
-                            placeholder="Password"
-                            autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                            required
-                            minLength={6}
-                            className={styles.input}
-                            value={form.password}
-                            onChange={handleChange}
-                            disabled={pending}
-                        />
-                    </div>
+                    {(mode === 'login' || mode === 'signup' || (mode === 'reset' && otpSent)) && (
+                        <div className={styles.inputGroup}>
+                            <input
+                                name="password"
+                                type="password"
+                                placeholder={mode === 'reset' ? 'New Password' : 'Password'}
+                                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+                                required
+                                minLength={6}
+                                className={styles.input}
+                                value={form.password}
+                                onChange={handleChange}
+                                disabled={pending}
+                            />
+                        </div>
+                    )}
+                    {mode === 'reset' && otpSent && (
+                        <div className={styles.inputGroup}>
+                            <input
+                                name="otp"
+                                type="text"
+                                placeholder="Enter OTP"
+                                required
+                                className={styles.input}
+                                value={form.otp}
+                                onChange={handleChange}
+                                disabled={pending}
+                            />
+                        </div>
+                    )}
                     {error && <div className={styles.error}>{error}</div>}
                     <button type="submit" disabled={pending} className={styles.submitButton}>
-                        {pending ? 'Please wait…' : mode === 'login' ? 'Sign In' : 'Sign Up'}
+                        {pending ? 'Please wait…' :
+                            mode === 'login' ? 'Sign In' :
+                                mode === 'signup' ? 'Sign Up' :
+                                    !otpSent ? 'Send Reset Code' : 'Reset Password'}
                     </button>
                 </form>
+                {mode === 'login' && (
+                    <button
+                        className={styles.forgotPassword}
+                        onClick={() => {
+                            setMode('reset');
+                            resetForm();
+                        }}
+                        type="button"
+                    >
+                        Forgot Password?
+                    </button>
+                )}
+                {mode === 'reset' && !otpSent && (
+                    <div className={styles.resetInstructions}>
+                        Enter your email to receive a password reset code
+                    </div>
+                )}
+                {mode === 'reset' && otpSent && (
+                    <div className={styles.resetInstructions}>
+                        Enter the verification code sent to your email and your new password
+                    </div>
+                )}
                 <div className={styles.switchMode}>
                     {mode === 'login' ? (
                         <>

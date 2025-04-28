@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import bcrypt from 'bcryptjs';
@@ -16,6 +15,8 @@ type AuthContextType = {
     signup: (email: string, password: string) => Promise<any>;
     login: (email: string, password: string) => Promise<any>;
     logout: () => void;
+    resetPassword: (email: string) => Promise<void>;
+    verifyOTP: (email: string, otp: string, newPassword: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -29,6 +30,121 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const logout = () => {
         setIsLoggedIn(false);
+    };
+
+    const resetPassword = async (email: string): Promise<void> => {
+        try {
+            // Check if user exists
+            const { data: user } = await supabase
+                .from('users')
+                .select('id')
+                .eq('email', email)
+                .single();
+
+            if (!user) {
+                throw new Error('User not found');
+            }
+
+            // Generate OTP
+            const otp = Math.floor(100000 + Math.random() * 900000).toString();
+            const expiresAt = new Date();
+            expiresAt.setMinutes(expiresAt.getMinutes() + 30); // OTP valid for 30 minutes
+
+            // Delete any existing OTPs for this user
+            await supabase
+                .from('password_resets')
+                .delete()
+                .eq('user_id', user.id);
+
+            // Store new OTP
+            const { error: otpError } = await supabase
+                .from('password_resets')
+                .insert([{
+                    user_id: user.id,
+                    otp: otp,
+                    expires_at: expiresAt.toISOString(),
+                    used: false
+                }]);
+
+            if (otpError) throw otpError;
+
+            try {
+                const response = await fetch('/api/send-reset-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, otp })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to send reset email');
+                }
+
+                // For development, still log the OTP
+                if (process.env.NODE_ENV === 'development') {
+                    console.log('Reset OTP:', otp);
+                }
+
+                console.log('Password reset email sent');
+            } catch (error) {
+                console.error('Failed to send email:', error);
+                throw new Error('Failed to send reset email');
+            }
+        } catch (error: any) {
+            throw new Error(error.message || 'Failed to initiate password reset');
+        }
+    };
+
+    const verifyOTP = async (email: string, otp: string, newPassword: string) => {
+        const { data: user } = await supabase
+            .from('users')
+            .select('id')
+            .eq('email', email)
+            .single();
+
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Verify OTP with additional checks
+        const { data: reset } = await supabase
+            .from('password_resets')
+            .select('*')
+            .eq('user_id', user.id)
+            .eq('otp', otp)
+            .eq('used', false)
+            .gt('expires_at', new Date().toISOString())
+            .single();
+
+        if (!reset) {
+            throw new Error('Invalid or expired OTP');
+        }
+
+        try {
+            // Start transaction
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(newPassword, salt);
+
+            // Update password
+            const { error: updateError } = await supabase
+                .from('users')
+                .update({ password: hashedPassword })
+                .eq('id', user.id);
+
+            if (updateError) throw updateError;
+
+            // Mark OTP as used
+            const { error: otpError } = await supabase
+                .from('password_resets')
+                .update({ used: true })
+                .eq('id', reset.id);
+
+            if (otpError) throw otpError;
+
+        } catch (error: any) {
+            throw new Error('Failed to update password. Please try again.');
+        }
     };
 
     // Signup: Hash password before storing
@@ -88,6 +204,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             signup,
             login,
             logout,
+            resetPassword,
+            verifyOTP,
         }}>
             {children}
         </AuthContext.Provider>
