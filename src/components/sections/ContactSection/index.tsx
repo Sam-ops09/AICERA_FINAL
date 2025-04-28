@@ -5,10 +5,14 @@ import { DynamicComponent } from '@/components/components-registry';
 import FormBlock from '@/components/molecules/FormBlock';
 import { mapStylesToClassNames as mapStyles } from '@/utils/map-styles-to-class-names';
 import Section from '../Section';
+import { useAuth } from '@/contexts/AuthContext';
+import LoginSignupButton from '@/components/LoginSignupButton';
 
 export default function ContactSection(props) {
     const { elementId, colors, backgroundSize, title, text, form, media, styles = {} } = props;
     const sectionAlign = styles.self?.textAlign ?? 'left';
+    const { isLoggedIn } = useAuth();
+
     return (
         <Section elementId={elementId} colors={colors} backgroundSize={backgroundSize} styles={styles.self}>
             <div className={classNames('flex gap-8', mapFlexDirectionStyles(styles.self?.flexDirection ?? 'row'))}>
@@ -32,7 +36,14 @@ export default function ContactSection(props) {
                             {text}
                         </Markdown>
                     )}
-                    {form && <FormBlock {...form} className={classNames({ 'mt-12': title || text })} />}
+                    {isLoggedIn ? (
+                        form && <FormBlock {...form} className={classNames({ 'mt-12': title || text })} />
+                    ) : (
+                        <div className="mt-12 text-center">
+                            <p className="mb-4">Please log in to access the contact form</p>
+                            <LoginSignupButton variant="mobile" />
+                        </div>
+                    )}
                 </div>
                 {media && (
                     <div

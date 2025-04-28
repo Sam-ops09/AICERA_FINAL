@@ -1,5 +1,4 @@
 
-
 import classNames from 'classnames';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -11,29 +10,36 @@ import { useAuth } from '@/contexts/AuthContext';
  * @param {React.ReactNode} [props.children]
  */
 export default function LoginSignupButton({ variant = 'header', className, children, ...rest }) {
-    const { openAuth } = useAuth();
+    const { openAuth, logout, isLoggedIn } = useAuth();
 
     // Variant-based styling
     const styles =
         variant === 'mobile'
-            ? 'text-xl bottom-shadow-1 hover:bottom-shadow-5 w-full text-center py-3 px-8'
-            : 'p-4 link-fill inline-flex items-center uppercase tracking-widest hover:bg-main-100 transition';
+            ? 'text-xl bottom-shadow-1 hover:bottom-shadow-5 text-center py-3 px-8'
+            : 'p-4 link-fill inline-flex items-center uppercase tracking-widest items-stretch';
 
     // Optional: Add left (or right) border if styled like other nav links
-    // You might want to tweak which side has border depending on where button is placed
     const border =
         variant === 'mobile'
             ? ''
             : 'border-l border-current';
 
+    const handleClick = () => {
+        if (isLoggedIn) {
+            logout();
+        } else {
+            openAuth();
+        }
+    };
+
     return (
         <button
             type="button"
-            onClick={openAuth}
+            onClick={handleClick}
             className={classNames(styles, border, className)}
             {...rest}
         >
-            {children || 'Login / Sign Up'}
+            {isLoggedIn ? 'Logout' : (children || 'Login / Sign Up')}
         </button>
     );
 }

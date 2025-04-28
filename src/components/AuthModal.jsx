@@ -1,9 +1,10 @@
+
 import { useRef, useEffect, useState } from 'react';
 import styles from './AuthModal.module.css';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function AuthModal() {
-    const { isAuthOpen, closeAuth, login, signup } = useAuth();
+    const { isAuthOpen, closeAuth, login, signup, setIsLoggedIn } = useAuth();
     const [mode, setMode] = useState('login');
     const [form, setForm] = useState({ email: '', password: '' });
     const [error, setError] = useState('');
@@ -12,11 +13,9 @@ export default function AuthModal() {
     const modalRef = useRef(null);
     const lastFocusedElement = useRef(null);
 
-    // Email and password validation
     const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const validatePassword = (password) => password.length >= 6;
 
-    // Reset form, error, and pending states
     const resetForm = () => {
         setForm({ email: '', password: '' });
         setError('');
@@ -64,7 +63,7 @@ export default function AuthModal() {
 
     if (!isAuthOpen) return null;
 
-    const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
+    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -84,6 +83,8 @@ export default function AuthModal() {
             } else {
                 await signup(form.email, form.password);
             }
+            closeAuth();
+            setIsLoggedIn(true);
         } catch (err) {
             setError(err.message);
         }
@@ -91,78 +92,85 @@ export default function AuthModal() {
     };
 
     return (
-        <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="auth-modal-title"
-            className={styles.overlay}
-        >
+        <div role="dialog" aria-modal="true" aria-labelledby="auth-modal-title" className={styles.overlay}>
             <div ref={modalRef} className={styles.modal}>
-                <h2 id="auth-modal-title">{mode === 'login' ? 'Login' : 'Sign up'}</h2>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        name="email"
-                        type="email"
-                        placeholder="Email"
-                        autoComplete="email"
-                        required
-                        className={styles.input}
-                        value={form.email}
-                        onChange={handleChange}
-                        disabled={pending}
-                    />
-                    <input
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                        required
-                        minLength={6}
-                        className={styles.input}
-                        value={form.password}
-                        onChange={handleChange}
-                        disabled={pending}
-                    />
+                <h2 id="auth-modal-title" className={styles.title}>
+                    {mode === 'login' ? 'Welcome Back' : 'Create Account'}
+                </h2>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div className={styles.inputGroup}>
+                        <input
+                            name="email"
+                            type="email"
+                            placeholder="Email"
+                            autoComplete="email"
+                            required
+                            className={styles.input}
+                            value={form.email}
+                            onChange={handleChange}
+                            disabled={pending}
+                        />
+                    </div>
+                    <div className={styles.inputGroup}>
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+                            required
+                            minLength={6}
+                            className={styles.input}
+                            value={form.password}
+                            onChange={handleChange}
+                            disabled={pending}
+                        />
+                    </div>
                     {error && <div className={styles.error}>{error}</div>}
-                    <button
-                        type="submit"
-                        disabled={pending}
-                        className={styles.submitButton}
-                    >
-                        {pending ? 'Please wait…' : mode === 'login' ? 'Login' : 'Sign Up'}
+                    <button type="submit" disabled={pending} className={styles.submitButton}>
+                        {pending ? 'Please wait…' : mode === 'login' ? 'Sign In' : 'Sign Up'}
                     </button>
                 </form>
                 <div className={styles.switchMode}>
                     {mode === 'login' ? (
                         <>
-                            <span>Don&#39;t have an account? </span>
+                            <span>Don&#39;t have an account?</span>
                             <button
                                 className={styles.switchButton}
-                                onClick={() => { setMode('signup'); resetForm(); }}
+                                onClick={() => {
+                                    setMode('signup');
+                                    resetForm();
+                                }}
                                 type="button"
                             >
-                                Sign up
+                                Create one
                             </button>
                         </>
                     ) : (
                         <>
-                            <span>Already have an account? </span>
+                            <span>Already have an account?</span>
                             <button
                                 className={styles.switchButton}
-                                onClick={() => { setMode('login'); resetForm(); }}
+                                onClick={() => {
+                                    setMode('login');
+                                    resetForm();
+                                }}
                                 type="button"
                             >
-                                Login
+                                Sign in
                             </button>
                         </>
                     )}
                 </div>
                 <button
                     className={styles.closeButton}
-                    onClick={() => { closeAuth(); resetForm(); }}
+                    onClick={() => {
+                        closeAuth();
+                        resetForm();
+                    }}
                     type="button"
+                    aria-label="Close"
                 >
-                    Close
+                    ×
                 </button>
             </div>
         </div>

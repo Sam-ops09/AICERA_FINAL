@@ -9,19 +9,27 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 type AuthContextType = {
     isAuthOpen: boolean;
+    isLoggedIn: boolean;
+    setIsLoggedIn: (value: boolean) => void;
     openAuth: () => void;
     closeAuth: () => void;
     signup: (email: string, password: string) => Promise<any>;
     login: (email: string, password: string) => Promise<any>;
+    logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [isAuthOpen, setIsAuthOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const openAuth = () => setIsAuthOpen(true);
     const closeAuth = () => setIsAuthOpen(false);
+
+    const logout = () => {
+        setIsLoggedIn(false);
+    };
 
     // Signup: Hash password before storing
     const signup = async (email: string, password: string) => {
@@ -73,10 +81,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return (
         <AuthContext.Provider value={{
             isAuthOpen,
+            isLoggedIn,
+            setIsLoggedIn,
             openAuth,
             closeAuth,
             signup,
             login,
+            logout,
         }}>
             {children}
         </AuthContext.Provider>
