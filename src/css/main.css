@@ -1,64 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap')
-layer(base);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import 'tailwindcss';
-@plugin '@tailwindcss/typography';
-
-@theme {
-    --font-body: var(--theme-font-body, monospace);
-    --background-color-main: var(--theme-dark);
-    --background-color-inverse: var(--theme-on-dark);
-    --text-color-main: var(--theme-on-dark);
-    --text-color-inverse: var(--theme-dark);
-    --container-8xl: 96rem;
-    --spacing-icon: 1em;
-    --background-color-orange: blue;
-}
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,400;0,500;1,400;1,500&family=DM+Mono:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
 @layer base {
+    :root {
+        --font-body: var(--theme-font-body, monospace);
+        --background-color-main: var(--theme-dark);
+        --background-color-inverse: var(--theme-on-dark);
+        --text-color-main: var(--theme-on-dark);
+        --text-color-inverse: var(--theme-dark);
+        --container-8xl: 96rem;
+        --spacing-icon: 1em;
+    }
+
     html {
         @apply antialiased font-body;
     }
+
     body {
         @apply flex flex-col min-h-screen;
     }
+
     body > div {
         @apply flex flex-col grow;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h1, h2, h3, h4, h5, h6 {
         @apply break-words;
         line-height: 1.15;
         font-weight: var(--theme-heading-weight);
         text-transform: var(--theme-heading-case);
     }
 
-    b,
-    strong {
+    b, strong {
         @apply font-medium;
     }
-
     select {
         @apply bg-no-repeat appearance-none cursor-pointer;
         background-image:
-            linear-gradient(45deg, transparent 50%, currentColor 0),
-            linear-gradient(135deg, currentColor 50%, transparent 0);
+                linear-gradient(45deg, transparent 50%, currentColor 0),
+                linear-gradient(135deg, currentColor 50%, transparent 0);
         background-position:
-            calc(100% - 18px) calc(1px + 50%),
-            calc(100% - 12px) calc(1px + 50%);
+                calc(100% - 18px) calc(1px + 50%),
+                calc(100% - 12px) calc(1px + 50%);
         background-size:
-            6px 6px,
-            6px 6px;
+                6px 6px,
+                6px 6px;
     }
     option {
         color: initial;
     }
-
     /* Color themes */
     :where([data-theme='colors-b']) {
         --background-color-main: var(--theme-light);
@@ -100,7 +93,31 @@ layer(base);
     }
 }
 
+@layer components {
+    .link-fill {
+        @apply transition-all text-main;
+        background-image: linear-gradient(
+                to bottom,
+                var(--background-color-inverse) 0%,
+                var(--background-color-inverse) 100%
+        );
+        background-size: 100% 0%;
+        background-repeat: no-repeat;
+    }
+
+    .link-fill:hover {
+        @apply text-inverse;
+        background-size: 100% 100%;
+    }
+    .font-body {
+        font-family: var(--font-body);
+    }
+}
+
 @layer utilities {
+    .bottom-shadow {
+        box-shadow: 0 1px 0 0 currentColor;
+    }
     .prose {
         --tw-prose-body: var(--text-color-main);
         --tw-prose-headings: var(--text-color-main);
@@ -139,24 +156,7 @@ layer(base);
             content: none;
         }
     }
-}
-
-@utility bottom-shadow-* {
-    box-shadow: 0 calc(--value(integer) * 1px) 0 0 currentColor;
-}
-
-@utility link-fill {
-    @apply transition-all text-main;
-    background-image: linear-gradient(
-        to bottom,
-        var(--background-color-orange) 0%,
-        var(--background-color-inverse) 100%
-    );
-    background-size: 100% 0%;
-    background-repeat: no-repeat;
-
-    &:hover {
-        @apply text-inverse;
-        background-size: 100% 100%;
+    .bottom-shadow-* {
+        box-shadow: 0 calc(--value(integer) * 1px) 0 0 currentColor;
     }
 }
