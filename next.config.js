@@ -4,10 +4,7 @@ const nextConfig = {
         stackbitPreview: process.env.STACKBIT_PREVIEW
     },
     trailingSlash: true,
-    reactStrictMode: true,
-    swcMinify: true,
-    output: 'standalone',
-    poweredByHeader: false
+    reactStrictMode: true
 };
 
 module.exports = nextConfig;
