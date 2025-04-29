@@ -15,7 +15,7 @@ export default function HeaderLink(props) {
                 aria-label={altText}
                 id={elementId || null}
                 className={classNames(
-                    'relative inline-flex items-center justify-center gap-1.5 text-center leading-tight uppercase tracking-widest no-underline',
+                    'relative inline-flex items-center justify-center gap-1.5 text-center leading-tight uppercase tracking-widest no-underline font-bold',
                     className
                 )}
             >

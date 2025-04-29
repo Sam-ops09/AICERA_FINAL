@@ -18,7 +18,7 @@ export default function PostFeedSection(props) {
                 )}
                 {subtitle && (
                     <p
-                        className={classNames('text-lg sm:text-xl opacity-80', mapStyles({ textAlign: sectionAlign }), {
+                        className={classNames('font-bold text-xl sm:text-2xl opacity-80', mapStyles({ textAlign: sectionAlign }), {
                             'mt-4': title
                         })}
                     >

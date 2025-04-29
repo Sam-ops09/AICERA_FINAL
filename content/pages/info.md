@@ -4,25 +4,21 @@ title: About
 colors: colors-b
 backgroundImage:
   type: BackgroundImage
-  url: /images/featured-Image3.jpg
+  url: /images/featured-Image1.jpg
   backgroundSize: cover
   backgroundPosition: center
   backgroundRepeat: no-repeat
-  opacity: 20
+  opacity: 60
 sections:
   - elementId: ''
     colors: colors-f
     backgroundSize: full
-    text: >+
-      # Hey I’m a developer. I’ve been born and raised in the world, and that’s
-      also where I’m based. I’m currently a free agent, ex-this, ex-that,
-      ex-super big name. When I’m not coding, writing or creating, I eat
-      cereals. I have a dog, check her out [@mygod](https://www.stackbit.com/).
-
-    media:
-      type: ImageBlock
-      url: /images/about.jpg
-      altText: Hero image
+    subtitle: >+
+      AI-Cera, a division of Twilight Systems, delivers cutting-edge IT solutions tailored to the corporate, enterprise, education, and healthcare sectors.
+#    media:
+#      type: ImageBlock
+#      url: /images/about.jpg
+#      altText: Hero image
     styles:
       self:
         height: auto
@@ -211,7 +207,7 @@ sections:
     subtitle: 'Contact:'
     colors: colors-f
     text: |
-      [thisismyemail.@myemail.me](mailto:thisismyemail.@myemail.me)
+      [samanyu48@gmail.com](mailto:samanyu48@gmail.com)
   - type: DividerSection
     styles:
       self:

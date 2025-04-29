@@ -4,7 +4,7 @@ import { colorFields, settingFields, settingFieldsGroup, styleFieldsGroup } from
 export const FeaturedProjectsSectionModel: Model = {
     type: 'object',
     name: 'FeaturedProjectsSection',
-    label: 'Featured projects',
+    label: 'Featured services',
     labelField: 'title',
     thumbnail: 'https://assets.stackbit.com/components/models/thumbnails/default.png',
     groups: ['SectionModels'],
@@ -20,7 +20,7 @@ export const FeaturedProjectsSectionModel: Model = {
             type: 'string',
             name: 'subtitle',
             label: 'Subtitle',
-            default: 'Featured projects section example'
+            default: 'Featured services section example'
         },
         {
             type: 'list',
@@ -48,9 +48,9 @@ export const FeaturedProjectsSectionModel: Model = {
                 models: ['ProjectLayout']
             },
             default: [
-                'content/pages/projects/project-three.md',
-                'content/pages/projects/project-two.md',
-                'content/pages/projects/project-one.md'
+                'content/pages/services/project-three.md',
+                'content/pages/services/project-two.md',
+                'content/pages/services/project-one.md'
             ]
         },
         ...colorFields,

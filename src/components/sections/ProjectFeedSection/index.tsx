@@ -31,7 +31,7 @@ export default function ProjectFeedSection(props) {
                 )}
 
                 {subtitle && (
-                    <p className={classNames('text-lg sm:text-xl opacity-80', mapStyles({ textAlign: sectionAlign }), {
+                    <p className={classNames('font-bold text-lg sm:text-2xl opacity-80', mapStyles({ textAlign: sectionAlign }), {
                         'mt-4': title
                     })}>
                         {subtitle}
@@ -161,7 +161,7 @@ function ProjectList(props) {
                 <Link
                     key={index}
                     href={project}
-                    className="group block transition-all duration-300 p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900"
+                    className="group block transition-all duration-300 p-4 rounded-xl border-2 shadow-md hover:shadow-xl hover:translate-y-1 mb-5"
                 >
                     <div className="flex flex-col gap-6 md:flex-row md:items-center">
                         {showFeaturedImage && project.featuredImage && (

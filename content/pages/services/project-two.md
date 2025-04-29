@@ -1,6 +1,6 @@
 ---
 type: ProjectLayout
-title: Another cool project
+title: Virtualization Services
 backgroundImage:
   type: BackgroundImage
   url: /images/featured-Image3.jpg
@@ -12,7 +12,7 @@ colors: colors-b
 date: '2021-12-20'
 client: Awesome client
 description: >-
-  It’s hard to imagine that I’ve that I wrote all this code by myself, probably because I worked with an entire team :) but they definitely followed my lead most of the time.
+  Optimize resources and enhance operational efficiency
 featuredImage:
   type: ImageBlock
   url: /images/bg2.jpg

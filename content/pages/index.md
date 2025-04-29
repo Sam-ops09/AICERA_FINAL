@@ -4,11 +4,11 @@ title: Home
 colors: colors-b
 backgroundImage:
   type: BackgroundImage
-  url: /images/featured-Image3.jpg
+  url: /images/featured-Image1.jpg
   backgroundSize: cover
   backgroundPosition: center
   backgroundRepeat: no-repeat
-  opacity: 20
+  opacity: 40
 sections:
   - elementId: ''
     colors: colors-f
@@ -43,23 +43,23 @@ sections:
     actions:
       - type: Link
         label: See all Services
-        url: /projects
+        url: /services
     showDate: false
     showDescription: true
     showFeaturedImage: true
     showReadMoreLink: true
     variant: variant-b
     projects:
-      - content/pages/projects/project-two.md
-      - content/pages/projects/project-three.md
-      - content/pages/projects/project-one.md
+      - content/pages/services/project-two.md
+      - content/pages/services/project-three.md
+      - content/pages/services/project-one.md
     styles:
       self:
         height: auto
         width: wide
         padding:
-          - pt-24
-          - pb-24
+          - pt-4
+          - pb-4
           - pl-4
           - pr-4
         textAlign: left
@@ -78,7 +78,7 @@ sections:
       - content/pages/blog/post-six.md
       - content/pages/blog/post-four.md
       - content/pages/blog/post-three.md
-    showDate: true
+    showDate: false
     showExcerpt: true
     showReadMoreLink: true
     styles:
@@ -86,15 +86,15 @@ sections:
         height: auto
         width: narrow
         padding:
-          - pt-28
-          - pb-48
+          - pt-8
+          - pb-8
           - pl-4
           - pr-4
         textAlign: left
   - type: ContactSection
     colors: colors-f
     backgroundSize: full
-    title: "Got an interesting project? Tell me more...\U0001F4AC"
+    title: "Contact us with your Query...\U0001F4AC"
     form:
       type: FormBlock
       elementId: sign-up-form
@@ -128,7 +128,7 @@ sections:
           width: 1/2
           type: TextFormControl
         - name: updatesConsent
-          label: Sign me up to recieve updates
+          label: Sign me up to receive updates
           isRequired: false
           width: full
           type: CheckboxFormControl

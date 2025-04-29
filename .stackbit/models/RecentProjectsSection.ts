@@ -4,7 +4,7 @@ import { colorFields, settingFields, settingFieldsGroup, styleFieldsGroup } from
 export const RecentProjectsSectionModel: Model = {
     type: 'object',
     name: 'RecentProjectsSection',
-    label: 'Recent projects',
+    label: 'Recent services',
     labelField: 'title',
     groups: ['SectionModels'],
     fieldGroups: [...styleFieldsGroup, ...settingFieldsGroup],
@@ -19,7 +19,7 @@ export const RecentProjectsSectionModel: Model = {
             type: 'string',
             name: 'subtitle',
             label: 'Subtitle',
-            default: 'Latest projects section example'
+            default: 'Latest services section example'
         },
         {
             type: 'list',
@@ -69,7 +69,7 @@ export const RecentProjectsSectionModel: Model = {
         {
             type: 'number',
             name: 'recentCount',
-            label: 'Number of recent projects to show',
+            label: 'Number of recent services to show',
             default: 6
         },
         {

@@ -1,6 +1,6 @@
 ---
 type: ProjectLayout
-title: A very cool code project
+title: Cloud Computing & Infrastructure
 backgroundImage:
   type: BackgroundImage
   url: /images/bg2.jpg
@@ -9,17 +9,17 @@ backgroundImage:
   backgroundRepeat: no-repeat
   opacity: 100
 colors: colors-a
-date: '2021-10-15'
+date: '2022-01-22'
 client: Awesome client
 description: >-
-  It’s hard to imagine that I’ve that I wrote all this code by myself, probably because I worked with an entire team :) but they definitely followed my lead most of the time.
+  Enterprise-grade cloud solutions designed for scalability and performance
 featuredImage:
   type: ImageBlock
-  url: /images/bg1.jpg
+  url: /images/bg3.jpg
   altText: Project thumbnail image
 media:
   type: ImageBlock
-  url: /images/bg1.jpg
+  url: /images/bg3.jpg
   altText: Project image
 ---
 

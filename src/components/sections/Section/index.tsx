@@ -47,7 +47,7 @@ function SectionInset(props: SectionProps) {
 }
 
 function SectionFullWidth(props: SectionProps) {
-    const { elementId, colors = 'colors-b', styles = {}, children } = props;
+    const { elementId, colors = 'colors-a', styles = {}, children } = props;
     return (
         <div
             data-theme={colors}

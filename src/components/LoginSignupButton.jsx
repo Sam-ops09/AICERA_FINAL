@@ -15,8 +15,8 @@ export default function LoginSignupButton({ variant = 'header', className, child
     // Variant-based styling
     const styles =
         variant === 'mobile'
-            ? 'text-xl bottom-shadow-1 hover:bottom-shadow-5 text-center py-3 px-8'
-            : 'p-4 link-fill inline-flex items-center uppercase tracking-widest items-stretch';
+            ? 'font-bold text-xl bottom-shadow-1 hover:bottom-shadow-5 text-center py-3 px-8'
+            : 'font-bold p-4 link-fill inline-flex items-center uppercase tracking-widest items-stretch';
 
     // Optional: Add left (or right) border if styled like other nav links
     const border =

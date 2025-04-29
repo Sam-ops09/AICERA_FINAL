@@ -58,6 +58,7 @@ function HeaderVariantA(props) {
                 </ul>
             )}
             {(primaryLinks.length > 0 || socialLinks.length > 0) && <MobileMenu {...props} />}
+            <LoginSignupButton variant="header" />
         </div>
     );
 }
@@ -82,6 +83,7 @@ function HeaderVariantB(props) {
                 </ul>
             )}
             {(primaryLinks.length > 0 || socialLinks.length > 0) && <MobileMenu {...props} />}
+            <LoginSignupButton variant="header" />
         </div>
     );
 }
@@ -178,7 +180,7 @@ function SiteLogoLink({ title, isTitleVisible, logo }) {
         <div className="flex items-center border-r border-current">
             <Link href="/" className="flex items-center h-full gap-2 p-4 link-fill">
                 {logo && <ImageBlock {...logo} className="max-h-12" />}
-                {title && isTitleVisible && <span className="text-base tracking-widest uppercase">{title}</span>}
+                {title && isTitleVisible && <span className="text-base tracking-widest uppercase font-bold">{title}</span>}
             </Link>
         </div>
     );
