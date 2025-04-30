@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import bcrypt from 'bcryptjs';
 
@@ -23,14 +23,26 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [isAuthOpen, setIsAuthOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('isLoggedIn') === 'true';
+        }
+        return false;
+    });
 
     const openAuth = () => setIsAuthOpen(true);
     const closeAuth = () => setIsAuthOpen(false);
 
     const logout = () => {
         setIsLoggedIn(false);
+        localStorage.removeItem('isLoggedIn');
     };
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            localStorage.setItem('isLoggedIn', 'true');
+        }
+    }, [isLoggedIn]);
 
     const resetPassword = async (email: string): Promise<void> => {
         try {

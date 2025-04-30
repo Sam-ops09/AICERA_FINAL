@@ -1,9 +1,21 @@
-import { generateGlobalCssVariables } from '@/utils/theme-style-utils';
-import { useEffect, useState } from 'react';
+
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { useState, useEffect } from 'react';
 import '../css/main.css';
+import { generateGlobalCssVariables } from '@/utils/theme-style-utils';
+
+// Optimize loading of AuthModal
+const AuthModal = dynamic(() => import('@/components/AuthModal'), {
+    ssr: false,
+    loading: () => null
+});
 
 import { AuthProvider } from '@/contexts/AuthContext';
-import AuthModal from '@/components/AuthModal';
+
+const ErrorBoundary = dynamic(() => import('@/components/ErrorBoundary'), {
+    ssr: false
+});
 
 export default function MyApp({ Component, pageProps }) {
     const { global, ...page } = pageProps;
@@ -19,15 +31,23 @@ export default function MyApp({ Component, pageProps }) {
 
     return (
         <>
+            <Head>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="description" content="AICERA - Advanced IT Solutions" />
+                <meta name="theme-color" content="#000000" />
+                <link rel="icon" href="/images/favicon.svg" />
+            </Head>
             <style jsx global>{`
                 :root {
                     ${cssVars}
                 }
             `}</style>
-            <AuthProvider>
-                <AuthModal />
-                {isMounted ? <Component {...pageProps} /> : null}
-            </AuthProvider>
+            <ErrorBoundary>
+                <AuthProvider>
+                    <AuthModal />
+                    {isMounted ? <Component {...pageProps} /> : null}
+                </AuthProvider>
+            </ErrorBoundary>
         </>
     );
 }
