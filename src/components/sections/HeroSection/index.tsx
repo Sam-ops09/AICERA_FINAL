@@ -7,6 +7,7 @@ import { DynamicComponent } from '@/components/components-registry';
 import { HeroSection } from '@/types';
 import { mapStylesToClassNames as mapStyles } from '@/utils/map-styles-to-class-names';
 import Section from '../Section';
+import { TextGenerateEffect } from '@/components/TextGenerateEffect';
 
 /*
  This is the only component in this codebase which has a few Stackbit annotations for specific primitive
@@ -14,7 +15,7 @@ import Section from '../Section';
  The motivation for these annotations: allowing the content editor to edit styles at the field level.
  */
 export default function Component(props: HeroSection) {
-    const { elementId, colors, backgroundSize, title, subtitle, text, media, actions = [], styles = {} } = props;
+    const { elementId, colors, backgroundSize, title, subtitle, subtitle2, text, media, actions = [], styles = {} } = props;
     const sectionFlexDirection = styles.self?.flexDirection ?? 'row';
     const sectionAlign = styles.self?.textAlign ?? 'left';
     return (
@@ -23,12 +24,21 @@ export default function Component(props: HeroSection) {
                 <div className={classNames('flex-1 w-full', mapStyles({ textAlign: sectionAlign }))}>
                     {title && (
                         <AnnotatedField path=".title">
-                            <h1 className="text-5xl sm:text-6xl">{title}</h1>
+                            <h1 className="text-5xl sm:text-6xl">
+                                <TextGenerateEffect duration={0.1}>
+                                {title}
+                                </TextGenerateEffect>
+                            </h1>
+                        </AnnotatedField>
+                    )}
+                    {subtitle2 && (
+                        <AnnotatedField path=".subtitle2">
+                            <p className={classNames('text-xl sm:text-4xl text-justify', { 'mt-8': title })}>{subtitle2}</p>
                         </AnnotatedField>
                     )}
                     {subtitle && (
                         <AnnotatedField path=".subtitle">
-                            <p className={classNames('text-xl sm:text-2xl text-justify', { 'mt-8': title })}>{subtitle}</p>
+                            <p className={classNames('mt-6 text-xl sm:text-2xl text-justify', { 'mt-8': title })}>{subtitle}</p>
                         </AnnotatedField>
                     )}
                     {text && (

@@ -327,6 +327,7 @@ export type HeroSection = BaseContentObject & {
     type: 'HeroSection';
     title?: string;
     subtitle?: string;
+    subtitle2?: string;
     text?: string;
     actions?: (Button | Link)[];
     media?: FormBlock | ImageBlock | VideoBlock;

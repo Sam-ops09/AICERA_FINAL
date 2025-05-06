@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 class ErrorBoundary extends React.Component<
@@ -11,6 +12,11 @@ class ErrorBoundary extends React.Component<
 
     static getDerivedStateFromError() {
         return { hasError: true };
+    }
+
+    componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+        // You can log the error to an error reporting service here
+        console.error("Error caught by ErrorBoundary:", error, errorInfo);
     }
 
     render() {

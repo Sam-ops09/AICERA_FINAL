@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState } from 'react';
 import styles from './AuthModal.module.css';
 import { useAuth } from '@/contexts/AuthContext';
@@ -57,10 +58,16 @@ export default function AuthModal() {
                     }
                 }
             };
-            modalRef.current.addEventListener('keydown', handleTab);
+
+            // Save a reference to the current modalRef value
+            const currentModalRef = modalRef.current;
+
+            currentModalRef.addEventListener('keydown', handleTab);
+
             return () => {
-                if (modalRef.current) {
-                    modalRef.current.removeEventListener('keydown', handleTab);
+                // Use the saved reference in the cleanup function
+                if (currentModalRef) {
+                    currentModalRef.removeEventListener('keydown', handleTab);
                 }
             };
         } else if (lastFocusedElement.current) {

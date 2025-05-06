@@ -14,7 +14,12 @@ sections:
     colors: colors-f
     backgroundSize: full
     subtitle: >+
-      AI-Cera, a division of Twilight Systems, delivers cutting-edge IT solutions tailored to the corporate, enterprise, education, and healthcare sectors.
+      AICERA, a division of Twilight Systems, delivers cutting-edge IT solutions tailored to the corporate, enterprise, education, and healthcare sectors.
+    subtitle2: >+
+      Welcome to Aicera, where the future of innovation is being redefined. 
+      Our groundbreaking fusion of artificial intelligence and human ingenuity is set to revolutionize the way we think,
+      work, and live. Join us as we embark on this exciting journey, combining smarter tech with sharper minds to create
+      a brighter, more intelligent future. Aicera - where possibilities become reality.
 #    media:
 #      type: ImageBlock
 #      url: /images/about.jpg

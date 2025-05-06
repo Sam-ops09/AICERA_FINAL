@@ -41,7 +41,7 @@ export default function ContactSection(props) {
                     ) : (
                         <div className="mt-12 text-center">
                             <p className="mb-4">Please log in to access the contact form</p>
-                            <LoginSignupButton variant="mobile" />
+                            <LoginSignupButton className={"inline-flex items-center justify-center rounded-xl px-5 py-4 text-lg transition border-2 border-current hover:bottom-shadow-6 hover:-translate-y-1.5"} variant="mobile" />
                         </div>
                     )}
                 </div>

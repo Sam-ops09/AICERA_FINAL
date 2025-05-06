@@ -3,17 +3,17 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
 import '../css/main.css';
-import { generateGlobalCssVariables } from '@/utils/theme-style-utils';
+import { generateGlobalCssVariables } from '../utils/theme-style-utils';
 
 // Optimize loading of AuthModal
-const AuthModal = dynamic(() => import('@/components/AuthModal'), {
+const AuthModal = dynamic(() => import('../components/AuthModal'), {
     ssr: false,
     loading: () => null
 });
 
-import { AuthProvider } from '@/contexts/AuthContext';
+import { AuthProvider } from '../contexts/AuthContext';
 
-const ErrorBoundary = dynamic(() => import('@/components/ErrorBoundary'), {
+const ErrorBoundary = dynamic(() => import('../components/ErrorBoundary'), {
     ssr: false
 });
 

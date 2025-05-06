@@ -58,7 +58,7 @@
             {
                 "type": "Link",
                 "label": "Contact",
-                "url": "mailto:thisismyemail.@myemail.me",
+                "url": "mailto:samanyu48@gmail.com",
                 "altText": ""
             }
         ],
@@ -72,7 +72,7 @@
             "address": "312 Lovely Street, Brooklyn, NY, 123456",
             "addressAltText": "My address"
         },
-        "copyrightText": "Powered by [Netlify](https://www.netlify.com/)",
+        "copyrightText": "Copyrights reserved by [Samanyu B Rao](https://www.netlify.com/)",
         "styles": {
             "self": {
                 "width": "narrow",
