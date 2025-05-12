@@ -25,15 +25,17 @@ export default function Component(props: HeroSection) {
                     {title && (
                         <AnnotatedField path=".title">
                             <h1 className="text-5xl sm:text-6xl">
-                                <TextGenerateEffect duration={0.1}>
-                                {title}
-                                </TextGenerateEffect>
+                                {styles.self?.animation ? (
+                                    <TextGenerateEffect duration={0.1}>{title}</TextGenerateEffect>
+                                ) : (
+                                    title
+                                )}
                             </h1>
                         </AnnotatedField>
                     )}
                     {subtitle2 && (
-                        <AnnotatedField path=".subtitle2">
-                            <p className={classNames('text-xl sm:text-4xl text-justify', { 'mt-8': title })}>{subtitle2}</p>
+                        <AnnotatedField path=".subtitle">
+                            <p className={classNames('mt-6 text-xl sm:text-2xl text-justify font-extrabold', { 'mt-8': title })}>{subtitle2}</p>
                         </AnnotatedField>
                     )}
                     {subtitle && (

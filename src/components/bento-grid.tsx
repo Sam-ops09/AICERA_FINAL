@@ -1,4 +1,5 @@
 import { cn } from '@/utils/cn';
+import React from 'react';
 
 export const BentoGrid = ({
     className, children, }: {

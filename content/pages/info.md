@@ -13,9 +13,9 @@ sections:
   - elementId: ''
     colors: colors-f
     backgroundSize: full
-    subtitle: >+
-      AICERA, a division of Twilight Systems, delivers cutting-edge IT solutions tailored to the corporate, enterprise, education, and healthcare sectors.
     subtitle2: >+
+      AICERA, a division of Twilight Systems, delivers cutting-edge IT solutions tailored to the corporate, enterprise, education, and healthcare sectors.
+    subtitle: >+
       Welcome to Aicera, where the future of innovation is being redefined. 
       Our groundbreaking fusion of artificial intelligence and human ingenuity is set to revolutionize the way we think,
       work, and live. Join us as we embark on this exciting journey, combining smarter tech with sharper minds to create
